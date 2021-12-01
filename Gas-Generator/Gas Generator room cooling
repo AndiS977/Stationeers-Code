@@ -1,7 +1,6 @@
 alias sensorEngine d0
 alias IcStirlingControl d1
 alias masterSwitch d2
-#alias AVEngineOut d3
 alias switch d4
 alias VPEngineIn d5
 
