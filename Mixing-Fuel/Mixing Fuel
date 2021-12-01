@@ -1,0 +1,22 @@
+alias mixer d0
+alias tankO2 d1
+alias tankH2 d2
+alias tankFuel d3
+
+setup:
+s mixer On 0
+
+loop:
+yield
+l r0 tankH2 Temperature
+mul r0 r0 0.666666
+l r1 tankO2 Temperature
+mul r1 r1 0.33333
+add r1 r1 r0
+div r0 r0 r1
+mul r0 r0 100
+s mixer Setting r0
+l r2 tankFuel Pressure
+slt r2 r2 10000
+s mixer On r2
+j loop
