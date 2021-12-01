@@ -1,0 +1,31 @@
+#data ports of batteries have to be
+#in the same network as IC10 data port
+#output on the IC-housing is max battery power
+#of all turned on batteries in MW
+#if no batteries are found, return value is -1
+
+#used registers are saved on the stack
+#and restored at end of function
+
+define batteryHash -400115994
+define batLargeHash -1388288459
+
+loop:
+yield
+jal getBatMax
+j loop
+
+getBatMax:
+push r0
+push r1
+lb r0 batteryHash On Sum
+lb r1 batLargeHash On Sum
+mul r0 r0 3.6
+mul r1 r1 9.0
+add r0 r0 r1
+brgtz r0 2
+move r0 -1
+s db Setting r0
+pop r1
+pop r0
+j ra 
