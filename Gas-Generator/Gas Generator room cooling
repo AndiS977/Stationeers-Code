@@ -1,7 +1,7 @@
 alias sensorEngine d0
 alias IcStirlingControl d1
 alias masterSwitch d2
-alias AVEngineOut d3
+#alias AVEngineOut d3
 alias switch d4
 alias VPEngineIn d5
 
@@ -10,12 +10,13 @@ alias pressure r6
 
 #define stirling -260316435 #stirling generator
 define stirling 1165997963 # gas generator
+define AVEngineOut -1129453144
 
 setup:
-s AVEngineOut Setting 100
-s AVEngineOut PressureExternal 100
-s AVEngineOut Mode 1
-s AVEngineOut On 1
+sb AVEngineOut Setting 100
+sb AVEngineOut PressureExternal 100
+sb AVEngineOut Mode 1
+sb AVEngineOut On 1
 s VPEngineIn Setting 0
 s VPEngineIn On 1
 
@@ -34,7 +35,7 @@ move r0 100 #set to 100 if above is greater then 100
 sub r0 100 r0
 brlt r0 100 2
 move r0 100
-s AVEngineOut PressureExternal r0
+sb AVEngineOut PressureExternal r0
 s db Setting r0
 l r0 masterSwitch Open
 bnez r0 lp2
