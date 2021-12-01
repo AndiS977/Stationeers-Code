@@ -1,0 +1,13 @@
+alias VPwasteOverpressure d0
+alias PATwaste d1
+
+setup:
+s VPwasteOverpressure On 0
+s VPwasteOverpressure Setting 30
+s VPwasteOverpressure Lock 1
+loop:
+yield
+l r0 PATwaste Pressure
+sgt r0 r0 35000
+s VPwasteOverpressure On r0
+j loop
