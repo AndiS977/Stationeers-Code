@@ -3,6 +3,7 @@ define sensorHash -1252983604
 define tankHash 272136332
 
 define SETPOINT 218 # Kelvin
+define MAXPRESSURE 39000 # kPa
 
 setup:
 sb ventHash Mode 1
@@ -13,7 +14,7 @@ move r1 0
 lb r0 sensorHash Temperature Average
 bgt r0 SETPOINT lb1
 lb r0 tankHash Pressure Average
-slt r1 r0 39000
+slt r1 r0 MAXPRESSURE
 lb1:
 sb ventHash On r1
 j loop
