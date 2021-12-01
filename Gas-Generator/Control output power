@@ -1,0 +1,15 @@
+alias dialFuel d0
+alias regulatorFuel d1
+
+setup:
+s dialFuel Mode 10
+
+loop:
+yield
+l r0 dialFuel Setting
+brnez r0 3
+move r0 1
+s dialFuel Setting r0
+mul r0 r0 3
+s regulatorFuel Setting r0
+j loop
