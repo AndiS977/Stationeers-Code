@@ -1,0 +1,51 @@
+alias sensorEngine d0
+alias IcStirlingControl d1
+alias masterSwitch d2
+alias AVEngineOut d3
+alias switch d4
+alias VPEngineIn d5
+
+alias temperature r5
+alias pressure r6
+
+define stirling -260316435
+
+setup:
+s AVEngineOut Setting 100
+s AVEngineOut PressureExternal 100
+s AVEngineOut Mode 1
+s AVEngineOut On 1
+s VPEngineIn Setting 0
+s VPEngineIn On 1
+
+loop:
+yield
+l temperature sensorEngine Temperature
+l pressure sensorEngine Pressure
+sub r0 temperature 268
+div r0 r0 10
+add r0 r0 1
+s VPEngineIn Setting r0
+sub r0 pressure 100
+mul r0 r0 5
+brlt r0 100 2
+move r0 100
+sub r0 100 r0
+brlt r0 100 2
+move r0 100
+s AVEngineOut PressureExternal r0
+s db Setting r0
+l r0 masterSwitch Open
+bnez r0 lp2
+l r0 switch Open
+bgtz r0 lp1
+sb stirling On 0
+beqz r0 loop
+lp1:
+l r1 IcStirlingControl Setting
+beq r1 -1 lp2
+sb stirling On r1
+j loop
+lp2:
+sb stirling On r0
+j loop
