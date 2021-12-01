@@ -1,0 +1,15 @@
+alias tank d0
+alias pump d1
+
+alias temperature r3
+
+setup:
+s pump On 0
+s pump Setting 5
+
+loop:
+yield
+l temperature tank Temperature
+slt r3 temperature 1300
+s pump On r3
+j loop
